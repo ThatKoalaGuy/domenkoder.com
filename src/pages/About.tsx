@@ -2,6 +2,7 @@ export default function About() {
 	return (
 		<>
 			<title>About me - Domen Koder</title>
+			<link rel="canonical" href="https://domenkoder.com/about" />
 			<meta
 				name="description"
 				content="A short summary of Domen Koder's interests."

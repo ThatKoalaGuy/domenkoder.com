@@ -2,6 +2,7 @@ export default function Home() {
 	return (
 		<>
 			<title>Domen Koder - Software Dev</title>
+			<link rel="canonical" href="https://domenkoder.com/" />
 			<meta
 				name="description"
 				content="Domen Koder is a software engineering student with a passion for web development and Linux. Explore projects and connect online."

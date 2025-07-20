@@ -2,6 +2,7 @@ export default function About() {
 	return (
 		<>
 			<title>Skills - Domen Koder</title>
+			<link rel="canonical" href="https://domenkoder.com/skills" />
 			<meta
 				name="description"
 				content="Learn about Domen Koder's skills as a software developer."

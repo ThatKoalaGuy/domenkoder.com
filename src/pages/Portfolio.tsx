@@ -2,6 +2,7 @@ export default function Portfolio() {
 	return (
 		<>
 			<title> Portfolio - Domen Koder</title>
+			<link rel="canonical" href="https://domenkoder.com/portfolio" />
 			<meta
 				name="description"
 				content="The portfolio of Domen Koder, showcasing his finished and work in project projects."
