@@ -1,7 +1,7 @@
 export default function Portfolio() {
 	return (
 		<>
-			<title> Portfolio - Domen Koder</title>
+			<title>Portfolio | Domen Koder</title>
 			<link rel="canonical" href="https://domenkoder.com/portfolio" />
 			<meta
 				name="description"

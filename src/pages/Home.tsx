@@ -1,7 +1,7 @@
 export default function Home() {
 	return (
 		<>
-			<title>Domen Koder - Software Dev</title>
+			<title>Domen Koder | Software Dev</title>
 			<link rel="canonical" href="https://domenkoder.com/" />
 			<meta
 				name="description"

@@ -1,7 +1,7 @@
 export default function About() {
 	return (
 		<>
-			<title>About me - Domen Koder</title>
+			<title>About me | Domen Koder</title>
 			<link rel="canonical" href="https://domenkoder.com/about" />
 			<meta
 				name="description"
