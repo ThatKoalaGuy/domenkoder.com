@@ -41,32 +41,42 @@ export default function Blog() {
 	}, []);
 
 	return (
-		<main className="flex justify-center px-4 py-8 flex-grow">
-			<div className="w-full max-w-2xl">
-				<h1 className="text-5xl font-bold mb-6 text-center text-white">Blog</h1>
-				<ul className="space-y-6">
-					{posts.map(({ slug, meta }) => (
-						<li key={slug}>
-							<Link
-								to={`/blog/${slug}`}
-								className="block p-5 rounded-xl bg-zinc-700/50 hover:bg-zinc-600/60 transition-colors"
-							>
-								<div className="flex items-center justify-between">
-									<h2 className="text-2xl font-semibold text-green-300 hover:underline">
-										{meta.title}
-									</h2>
-									<h2 className="text-green-300 text-sm sm:text-base">
-										{meta.date}
-									</h2>
-								</div>
-								<p className="text-green-400 mt-2">
-									{meta.summary ?? 'No summary available.'}
-								</p>
-							</Link>
-						</li>
-					))}
-				</ul>
-			</div>
-		</main>
+		<>
+			<title>Blog | Domen Koder</title>
+			<link rel="canonical" href="https://domenkoder.com/blog" />
+			<meta
+				name="description"
+				content="Explore articles by Domen Koder on programming, web development, and tech insights — a blog for curious developers."
+			/>
+			<main className="flex justify-center px-4 py-8 flex-grow">
+				<div className="w-full max-w-2xl">
+					<h1 className="text-5xl font-bold mb-6 text-center text-white">
+						Blog
+					</h1>
+					<ul className="space-y-6">
+						{posts.map(({ slug, meta }) => (
+							<li key={slug}>
+								<Link
+									to={`/blog/${slug}`}
+									className="block p-5 rounded-xl bg-zinc-700/50 hover:bg-zinc-600/60 transition-colors"
+								>
+									<div className="flex items-center justify-between">
+										<h2 className="text-2xl font-semibold text-green-300 hover:underline">
+											{meta.title}
+										</h2>
+										<h2 className="text-green-300 text-sm sm:text-base">
+											{meta.date}
+										</h2>
+									</div>
+									<p className="text-green-400 mt-2">
+										{meta.summary ?? 'No summary available.'}
+									</p>
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+			</main>
+		</>
 	);
 }

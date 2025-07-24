@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
 
 type PostMeta = {
 	title: string;
 	date: string;
-	summary?: string;
+	summary: string;
 	[key: string]: unknown;
 	author: string;
 };
@@ -47,25 +48,31 @@ export default function Post() {
 	const { meta, Component } = post;
 
 	return (
-		<article className="flex justify-center px-4 py-10 flex-grow">
-			<div className="prose prose-invert max-w-2xl w-full">
-				{/* Title + author/date in flex row */}
-				<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-					<h1 className="text-4xl sm:text-6xl m-0">{meta.title}</h1>
-					<div className="text-sm sm:text-right">
-						<h2 className="text-green-400 text-base m-0">{meta.date}</h2>
-						<h2 className="text-lg font-medium m-0">By: {meta.author}</h2>
+		<>
+			<SEO
+				title={meta.title ?? ''}
+				description={meta.summary ?? ''}
+				slug={slug ?? ''}
+			/>
+			<article className="flex justify-center px-4 py-10 flex-grow">
+				<div className="prose prose-invert max-w-2xl w-full">
+					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+						<h1 className="text-4xl sm:text-6xl m-0">{meta.title}</h1>
+						<div className="text-sm sm:text-right">
+							<h2 className="text-green-400 text-base m-0">{meta.date}</h2>
+							<h2 className="text-lg font-medium m-0">By: {meta.author}</h2>
+						</div>
 					</div>
+
+					<Component />
+
+					<p className="mt-10">
+						<Link to="/blog" className="text-green-400 hover:underline">
+							← Back to Blog
+						</Link>
+					</p>
 				</div>
-
-				<Component />
-
-				<p className="mt-10">
-					<Link to="/blog" className="text-green-400 hover:underline">
-						← Back to Blog
-					</Link>
-				</p>
-			</div>
-		</article>
+			</article>
+		</>
 	);
 }
