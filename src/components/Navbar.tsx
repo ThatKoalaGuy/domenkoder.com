@@ -54,7 +54,7 @@ export default function Navbar() {
 						className="hover:text-white transition"
 						onClick={() => setIsOpen(false)}
 					>
-						Portfolio
+						Blog
 					</Link>
 					<Link
 						to="/portfolio"
