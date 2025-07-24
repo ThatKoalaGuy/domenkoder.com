@@ -16,6 +16,9 @@ export default function Navbar() {
 
 				{/* Desktop links */}
 				<div className="hidden md:flex space-x-6">
+					<Link to="/blog" className="hover:text-white transition">
+						Blog
+					</Link>
 					<Link to="/portfolio" className="hover:text-white transition">
 						Portfolio
 					</Link>
@@ -46,6 +49,13 @@ export default function Navbar() {
 				}`}
 			>
 				<div className="flex flex-col items-end px-4 py-4 space-y-2 text-right">
+					<Link
+						to="/blog"
+						className="hover:text-white transition"
+						onClick={() => setIsOpen(false)}
+					>
+						Portfolio
+					</Link>
 					<Link
 						to="/portfolio"
 						className="hover:text-white transition"

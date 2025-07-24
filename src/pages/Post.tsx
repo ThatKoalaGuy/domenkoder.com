@@ -1,0 +1,71 @@
+import React, { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+
+type PostMeta = {
+	title: string;
+	date: string;
+	summary?: string;
+	[key: string]: unknown;
+	author: string;
+};
+
+type Post = {
+	slug: string;
+	meta: PostMeta;
+	Component: React.ComponentType;
+};
+
+export default function Post() {
+	const { slug } = useParams<{ slug: string }>();
+	const [post, setPost] = useState<Post | null>(null);
+
+	useEffect(() => {
+		if (!slug) return;
+
+		const modules = import.meta.glob('../posts/*.mdx');
+
+		(async () => {
+			for (const [path, resolver] of Object.entries(modules)) {
+				if (path.endsWith(`${slug}.mdx`)) {
+					const mod = (await resolver()) as {
+						meta: PostMeta;
+						default: React.ComponentType;
+					};
+					setPost({
+						slug,
+						meta: mod.meta,
+						Component: mod.default,
+					});
+					break;
+				}
+			}
+		})();
+	}, [slug]);
+
+	if (!post) return <p className="text-center mt-10">Loading post...</p>;
+
+	const { meta, Component } = post;
+
+	return (
+		<article className="flex justify-center px-4 py-10 flex-grow">
+			<div className="prose prose-invert max-w-2xl w-full">
+				{/* Title + author/date in flex row */}
+				<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+					<h1 className="text-4xl sm:text-6xl m-0">{meta.title}</h1>
+					<div className="text-sm sm:text-right">
+						<h2 className="text-green-400 text-base m-0">{meta.date}</h2>
+						<h2 className="text-lg font-medium m-0">By: {meta.author}</h2>
+					</div>
+				</div>
+
+				<Component />
+
+				<p className="mt-10">
+					<Link to="/blog" className="text-green-400 hover:underline">
+						← Back to Blog
+					</Link>
+				</p>
+			</div>
+		</article>
+	);
+}

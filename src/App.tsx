@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Footer from './components/Footer';
+import Blog from './pages/Blog';
+import Post from './pages/Post';
 import Portfolio from './pages/Portfolio';
 import Skills from './pages/Skills';
 import About from './pages/About';
@@ -13,6 +15,8 @@ function App() {
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/blog" element={<Blog />} />
+				<Route path="/blog/:slug" element={<Post />} />
 				<Route path="/portfolio" element={<Portfolio />} />
 				<Route path="/skills" element={<Skills />} />
 				<Route path="/about" element={<About />} />
