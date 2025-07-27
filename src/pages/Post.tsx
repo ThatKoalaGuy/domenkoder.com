@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import Giscus from '@giscus/react';
 
 type PostMeta = {
 	title: string;
@@ -81,6 +82,24 @@ export default function Post() {
 					</p>
 				</div>
 			</article>
+			<div className="flex justify-center w-full">
+				<div className="max-w-4xl w-full">
+					<Giscus
+						repo="ThatKoalaGuy/domenkoder.com"
+						repoId="R_kgDOPL6q1Q"
+						category="Announcements"
+						categoryId="DIC_kwDOPL6q1c4CtebQ"
+						mapping="pathname"
+						strict="0"
+						reactionsEnabled="1"
+						emitMetadata="0"
+						inputPosition="top"
+						theme="noborder_dark"
+						lang="en"
+						loading="lazy"
+					/>
+				</div>
+			</div>
 		</>
 	);
 }
