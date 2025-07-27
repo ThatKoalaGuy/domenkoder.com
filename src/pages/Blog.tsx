@@ -60,14 +60,15 @@ export default function Blog() {
 									to={`/blog/${slug}`}
 									className="block p-5 rounded-xl bg-zinc-700/50 hover:bg-zinc-600/60 transition-colors"
 								>
-									<div className="flex items-center justify-between">
-										<h2 className="text-2xl font-semibold text-green-300 hover:underline">
+									<div className="flex items-center justify-between gap-4">
+										<h2 className="text-2xl font-semibold text-green-300 hover:underline flex-shrink max-w-[70%]">
 											{meta.title}
 										</h2>
-										<h2 className="text-green-300 text-sm sm:text-base">
+										<h2 className="text-green-300 text-sm sm:text-base flex-shrink-0 whitespace-nowrap">
 											{meta.date}
 										</h2>
 									</div>
+
 									<p className="text-green-400 mt-2">
 										{meta.summary ?? 'No summary available.'}
 									</p>

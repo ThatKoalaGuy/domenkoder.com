@@ -55,16 +55,24 @@ export default function Post() {
 				slug={slug ?? ''}
 			/>
 			<article className="flex justify-center px-4 py-10 flex-grow">
-				<div className="prose prose-invert max-w-2xl w-full">
-					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-						<h1 className="text-4xl sm:text-6xl m-0">{meta.title}</h1>
+				<div className="max-w-4xl w-full">
+					<div className="flex flex-col sm:flex-row justify-between items-end mb-8 gap-4">
+						<h1 className="text-4xl sm:text-6xl m-0 text-green-400 font-medium">
+							{meta.title}
+						</h1>
 						<div className="text-sm sm:text-right">
-							<h2 className="text-green-400 text-base m-0">{meta.date}</h2>
-							<h2 className="text-lg font-medium m-0">By: {meta.author}</h2>
+							<h2 className="text-green-400 text-lg m-0 leading-none whitespace-nowrap">
+								{meta.date}
+							</h2>
+							<h2 className="text-xl font-medium m-0 leading-none whitespace-nowrap text-green-400">
+								By: {meta.author}
+							</h2>
 						</div>
 					</div>
 
-					<Component />
+					<div className="prose prose-invert max-w-4xl text-lg">
+						<Component />
+					</div>
 
 					<p className="mt-10">
 						<Link to="/blog" className="text-green-400 hover:underline">
