@@ -87,7 +87,7 @@ export default function Post() {
 					<Giscus
 						repo="ThatKoalaGuy/domenkoder.com"
 						repoId="R_kgDOPL6q1Q"
-						category="Announcements"
+						category="Giscuss"
 						categoryId="DIC_kwDOPL6q1c4CtebQ"
 						mapping="pathname"
 						strict="0"
