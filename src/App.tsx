@@ -13,18 +13,20 @@ function App() {
 	return (
 		<div className="bg-zinc-800 flex flex-col min-h-screen text-green-400 font-heading">
 			<Navbar />
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/blog" element={<Blog />} />
-				<Route path="/blog/:slug" element={<Post />} />
-				<Route path="/portfolio" element={<Portfolio />} />
-				<Route path="/skills" element={<Skills />} />
-				<Route path="/about" element={<About />} />
+			<main className="pt-15 flex-grow">
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/blog" element={<Blog />} />
+					<Route path="/blog/:slug" element={<Post />} />
+					<Route path="/portfolio" element={<Portfolio />} />
+					<Route path="/skills" element={<Skills />} />
+					<Route path="/about" element={<About />} />
 
-				{/* 404 page - wildcard route */}
-				<Route path="/404" element={<NotFound />} />
-				<Route path="*" element={<NotFound />} />
-			</Routes>
+					{/* 404 page - wildcard route */}
+					<Route path="/404" element={<NotFound />} />
+					<Route path="*" element={<NotFound />} />
+				</Routes>
+			</main>
 			<Footer />
 		</div>
 	);

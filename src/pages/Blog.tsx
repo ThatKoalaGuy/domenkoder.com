@@ -48,7 +48,7 @@ export default function Blog() {
 				name="description"
 				content="Explore articles by Domen Koder on programming, web development, and tech insights — a blog for curious developers."
 			/>
-			<main className="flex justify-center px-4 py-8 flex-grow">
+			<main className="flex justify-center px-4 py-6 flex-grow">
 				<div className="w-full max-w-2xl">
 					<h1 className="text-5xl font-bold mb-6 text-center text-white">
 						Blog

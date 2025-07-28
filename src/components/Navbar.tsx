@@ -1,12 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [showNavbar, setShowNavbar] = useState(true);
+	const [lastScrollY, setLastScrollY] = useState(0);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+
+			// Hide on scroll down, show on scroll up
+			if (currentScrollY > lastScrollY && currentScrollY > 50) {
+				setShowNavbar(false);
+			} else {
+				setShowNavbar(true);
+			}
+
+			setLastScrollY(currentScrollY);
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, [lastScrollY]);
 
 	return (
-		<nav className="bg-zinc-800 text-green-400 px-6 py-4 shadow-md relative z-50">
+		<nav
+			className={`bg-zinc-800 text-green-400 px-6 py-4 shadow-md fixed w-full top-0 z-50 transition-transform duration-300 ${
+				showNavbar ? 'translate-y-0' : '-translate-y-full'
+			}`}
+		>
 			<div className="max-w-7xl mx-auto flex justify-between items-center">
 				<div className="text-2xl font-bold">
 					<Link to="/" className="hover:text-white transition">
