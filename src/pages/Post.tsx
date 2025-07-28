@@ -57,7 +57,7 @@ export default function Post() {
 			/>
 			<article className="flex justify-center px-4 py-10 flex-grow">
 				<div className="max-w-4xl w-full">
-					<div className="flex flex-col sm:flex-row justify-between items-end mb-8 gap-4">
+					<div className="flex flex-col sm:flex-row justify-between items-start mb-8 gap-4">
 						<h1 className="text-4xl sm:text-6xl m-0 text-green-400 font-medium">
 							{meta.title}
 						</h1>
