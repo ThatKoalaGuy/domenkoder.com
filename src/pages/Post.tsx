@@ -83,7 +83,7 @@ export default function Post() {
 				</div>
 			</article>
 			<div className="flex justify-center w-full">
-				<div className="max-w-4xl w-full">
+				<div className="max-w-4xl w-full mx-4">
 					<Giscus
 						repo="ThatKoalaGuy/domenkoder.com"
 						repoId="R_kgDOPL6q1Q"
