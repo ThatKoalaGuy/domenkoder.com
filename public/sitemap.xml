@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://domenkoder.com/</loc>
+    <lastmod>2025-07-28</lastmod>
   </url>
   <url>
     <loc>https://domenkoder.com/blog</loc>
+    <lastmod>2025-07-28</lastmod>
   </url>
   <url>
     <loc>https://domenkoder.com/blog/first-post</loc>
+    <lastmod>2025-07-24</lastmod>
   </url>
   <url>
     <loc>https://domenkoder.com/blog/goodbye-github-pages</loc>
+    <lastmod>2025-07-28</lastmod>
   </url>
   <url>
     <loc>https://domenkoder.com/portfolio</loc>
+    <lastmod>2025-07-13</lastmod>
   </url>
   <url>
     <loc>https://domenkoder.com/skills</loc>
+    <lastmod>2025-07-13</lastmod>
   </url>
   <url>
     <loc>https://domenkoder.com/about</loc>
+    <lastmod>2025-07-13</lastmod>
   </url>
 </urlset>
