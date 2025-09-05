@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+@font-face {
+	font-family: 'Tomorrow';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('/fonts/Tomorrow-Medium.ttf') format('truetype');
+}
+
+@theme {
+	--font-heading: 'Tomorrow', sans-serif;
+}

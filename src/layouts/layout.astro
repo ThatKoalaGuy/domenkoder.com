@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const { title, description, canonical } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		{canonical && <link rel="canonical" href={canonical} />}
+
+		<!-- Open Graph Meta Tags -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		{canonical && <meta property="og:url" content={canonical} />}
+		<meta
+			property="og:image"
+			content="https://domenkoder.com/icons/avatar.png"
+		/>
+
+		<!-- Twitter Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		{canonical && <meta name="twitter:url" content={canonical} />}
+		<meta
+			name="twitter:image"
+			content="https://domenkoder.com/icons/avatar.png"
+		/>
+	</head>
+	<body
+		class="bg-zinc-800 flex flex-col min-h-screen text-green-400 font-heading"
+	>
+		<Navbar />
+		<main class="flex-1 pt-16">
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>

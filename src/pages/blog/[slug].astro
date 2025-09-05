@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/layout.astro';
+
+type PostModule = {
+	default: any;
+	meta: {
+		title: string;
+		date: string;
+		summary?: string;
+		author?: string;
+		[key: string]: any;
+	};
+};
+
+export async function getStaticPaths() {
+	const modules: Record<string, PostModule> = import.meta.glob(
+		'../../posts/*.mdx',
+		{ eager: true }
+	) as Record<string, PostModule>;
+
+	return Object.entries(modules).map(([path]) => {
+		const slug = path.split('/').pop()?.replace('.mdx', '')!;
+		return { params: { slug } };
+	});
+}
+
+const modules: Record<string, PostModule> = import.meta.glob(
+	'../../posts/*.mdx',
+	{ eager: true }
+) as Record<string, PostModule>;
+
+const { slug } = Astro.params;
+
+const postModule = Object.entries(modules).find(
+	([path]) => path.split('/').pop()?.replace('.mdx', '') === slug
+)?.[1];
+
+if (!postModule) {
+	Astro.response.status = 404;
+	return;
+}
+
+const { default: Post, meta } = postModule;
+const title = meta.title;
+const description = meta.summary ?? '';
+const canonical = `https://domenkoder.com/blog/${slug}`;
+---
+
+<Layout {title} {description} {canonical}>
+	<article class="flex justify-center px-4 py-10 flex-grow">
+		<div class="max-w-4xl w-full">
+			<div
+				class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4"
+			>
+				<h1 class="text-4xl sm:text-6xl m-0 text-green-400 font-medium">
+					{meta.title}
+				</h1>
+				<div class="text-sm sm:text-right">
+					<h2 class="text-green-400 text-lg m-0 leading-none whitespace-nowrap">
+						{meta.date}
+					</h2>
+					{
+						meta.author && (
+							<h2 class="text-xl font-medium m-0 leading-none whitespace-nowrap text-green-400">
+								By: {meta.author}
+							</h2>
+						)
+					}
+				</div>
+			</div>
+
+			<div class="prose prose-invert max-w-4xl text-lg">
+				<Post />
+			</div>
+
+			<p class="mt-10">
+				<a href="/blog" class="text-green-400 hover:underline">← Back to Blog</a
+				>
+			</p>
+		</div>
+	</article>
+
+	<div class="flex justify-center w-full">
+		<div class="max-w-4xl w-full mx-4">
+			<script
+				src="https://giscus.app/client.js"
+				data-repo="ThatKoalaGuy/domenkoder.com"
+				data-repo-id="R_kgDOPL6q1Q"
+				data-category="Giscuss"
+				data-category-id="DIC_kwDOPL6q1c4CtebQ"
+				data-mapping="pathname"
+				data-strict="0"
+				data-reactions-enabled="1"
+				data-emit-metadata="0"
+				data-input-position="top"
+				data-theme="noborder_dark"
+				data-lang="en"
+				data-loading="lazy"
+				crossorigin="anonymous"
+				async
+			></script>
+		</div>
+	</div>
+</Layout>

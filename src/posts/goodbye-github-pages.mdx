@@ -1,0 +1,141 @@
+<meta name="fediverse:creator" content="@ThatKoalaGuy@mastodon.social"></meta>
+
+export const meta = {
+	title: 'Why I Migrated from GitHub Pages to Cloudflare Workers — and How',
+	summary:
+		'In this post, I explain why I migrated to another hosting provider for my portfolio website.',
+	date: '2025-07-27',
+	tags: ['react', 'web', 'devops', 'SEO'],
+	author: 'Domen Koder',
+};
+
+Hi! Today I'm going to be explaining the reasons and process behind migrating my [personal website](https://domenkoder.com/) from GitHub Pages to Cloudflare Workers.
+
+<span className="text-2xl text-green-400">Backstory</span> <br />
+So this summer I decided to create a personal portfolio website where I'd be
+able to showcase my [projects](https://domenkoder.com/portfolio). After I
+created and deployed it on GitHub Pages
+<sup>*</sup>, I thought, hey, I want my site to rank first if you Google me. So I
+did a deep dive into SEO. Oh boy, I had no idea what I was in for.
+
+{/* prettier-ignore */}
+<span className="text-2xl text-green-400"><sup>*</sup>React SPA routing headaches</span> <br />
+I built my site with clean URLs, meaning the blog page is at [domenkoder.com/blog](https://domenkoder.com/blog)
+and not [domenkoder.com/blog.html](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
+But when I went to host my site, I ran into some problems. GitHub doesn't support
+clean URLs. Luckily (or rather unluckily), [I found a solution](https://GitHub.com/rafgraph/spa-GitHub-pages).
+I'll explain how it works later, but you should definitely check it out! Anyways
+I followed the instructions and set it up on my site. It worked great! (Definitely
+not subtle foreshadowing. 😉)
+
+<span className="text-2xl text-green-400">Robots?</span> <br />
+When I started researching SEO, I found out about the Google Search Console. I
+submitted my site and gained access to the dashboard. There were so many
+buttons, I had no idea where to start, so I followed a guide. First, I learned
+about the robots.txt file. Mine is very simple and looks like this:
+
+```
+User-agent: *
+Allow: /
+
+Sitemap: https://domenkoder.com/sitemap.xml
+```
+
+Let's break this down a bit. <br/>
+`User-agent: *` means that any crawler can crawl the website. <br/>
+`Allow: /` means that the whole website can be crawled (/ stands for root). <br/>
+`Sitemap: https://domenkoder.com/sitemap.xml` points the crawlers to the sitemap. <br/>
+
+<span className="text-2xl text-green-400">What is a sitemap?</span> <br />A sitemap
+is usually an XML file that contains a structured list of all the important URLs
+on a website, along with optional metadata like the last modification date, change
+frequency, and priority to help search engines crawl the site more effectively. Mine
+currently looks something like this:
+
+```
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://domenkoder.com/</loc>
+	</url>
+	<url>
+		<loc>https://domenkoder.com/blog</loc>
+	</url>
+	<url>
+		<loc>https://domenkoder.com/blog/first-post</loc>
+	</url>
+	<url>
+		<loc>https://domenkoder.com/portfolio</loc>
+	</url>
+	<url>
+		<loc>https://domenkoder.com/skills</loc>
+	</url>
+	<url>
+		<loc>https://domenkoder.com/about</loc>
+	</url>
+</urlset>
+```
+
+I know, I need to improve it and figure out a way to create it automagically, but I haven't gotten around to that yet.
+Anyways, after I created both robots.txt and the sitemap, I submitted them to the Search Console.
+It took a few days, but Google finally indexed my homepage! I was ecstatic. But for some weird reason, it didn't index any of the other pages.
+I've heard that Google crawlers can be a bit finicky, so I figured it will index them if I gave them some time. (Spoiler - it didn't).
+
+{/* prettier-ignore */}
+<span className="text-2xl text-green-400">404? But it works on my machine!</span> <br />
+Since Google still didn't index any of my other pages, I started researching what
+could be the problem. I tried to manually request a page indexing on the Search Console,
+but it gave me error 404 - site unreachable. This was weird, since I could access
+all of the pages on my computer and my phone. I was getting really frustrated and
+on the verge of giving up. But suddenly, a thought crossed my mind. Wait - didn't
+the clean URL script use the 404 page for redirects? I reviewed the code and —
+bingo! I've found my culprit. I won't explain it in detail here, since the [README.md](https://GitHub.com/rafgraph/spa-GitHub-pages#single-page-apps-for-GitHub-pages)
+in the repo explains it perfectly, but in simple terms, you get redirected with a
+404 error and the script puts you on the right URL. As a user, you don't see anything
+out of the ordinary, but as soon as the crawler sees the 404 error, it gives up on indexing
+the page. How will we fix this?
+
+{/* prettier-ignore */}
+<span className="text-2xl text-green-400">Out with the old, in with the new!</span> <br />
+I started researching alternatives for hosting SPAs and found that
+Cloudflare was the most liked one. I set up an account and connected my GitHub repo,
+but then the build process failed. I consulted the Cloudflare docs and found out
+that I had to create a wrangler.toml file, which configures how Wrangler (Cloudflare’s
+CLI) builds, deploys, and manages my Workers project. Mine looks like this:
+
+```
+name = "domenkoder"
+compatibility_date = "2025-07-24"
+
+[assets]
+directory = "./dist/"
+not_found_handling = "single-page-application"
+```
+
+Let's break it down: <br/>
+`name = "domenkoder"` this is the name of the project in Cloudflare. <br/>
+`compatibility_date = "2025-07-24"` sets the Wrangler compatibility date. <br/>
+`directory = "./dist/"` tells Wrangler where the project is built. <br/>
+`not_found_handling = "single-page-application"` - is our golden ticket - it tells Cloudflare how to handle URL routing. <br/>
+
+After I did all of that, the build succeeded! All I had left to do was connect it to my domain.
+
+{/* prettier-ignore */}
+<span className="text-2xl text-green-400">DNS migration: From Porkbun to Cloudflare</span> <br />
+Don't get me wrong, I love Porkbun! They are always my go-to when purchasing a
+domain. But Cloudflare's DNS is simply superior - so many options, a nice
+dashboard, and a lot of traffic insights! Well, if I wanted to connect my domain
+to my site, I <i>had</i> to migrate to Cloudflare's DNS, but I didn't mind it at
+all. The process was quick and painless, and suddenly I had so many security and
+performance choices at my fingertips! I blocked bots, AI scrapers, and enforced
+always-HTTPS, but this is just the tip of the iceberg! Anyway, I successfully
+requested the indexing of all my pages on Google.
+
+<span className="text-2xl text-green-400">Closing thoughts</span> <br />
+Even if my page isn't ranked #1 yet, I still learned a lot in the last few days.
+I've also come to the realization that I like DevOps almost as much as coding!
+This article is the first in my series of doing SEO optimizations to try to get
+my site to be the first hit when you search for me, so I'll post another one as
+soon as I have another breakthrough or funny story to tell. In the meanwhile you
+can leave your thoughts and suggestions in the comments down bellow.
+
+Take care!

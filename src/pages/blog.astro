@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/layout.astro';
+
+const title = 'Blog | Domen Koder';
+const description =
+	'Explore articles by Domen Koder on programming, web development, and tech insights — a blog for curious developers.';
+const canonical = 'https://domenkoder.com/blog';
+
+const modules = import.meta.glob('../posts/*.mdx', { eager: true });
+const posts = Object.entries(modules)
+	.map(([path, mod]) => ({
+		slug: path.split('/').pop()?.replace('.mdx', '') ?? '',
+		meta: (mod as any).meta,
+	}))
+	.sort((a, b) => (a.meta.date < b.meta.date ? 1 : -1));
+---
+
+<Layout {title} {description} {canonical}>
+	<main class="flex justify-center px-4 py-6 flex-grow">
+		<div class="w-full max-w-2xl">
+			<h1 class="text-5xl font-bold mb-6 text-center text-white">Blog</h1>
+
+			<ul class="space-y-6">
+				{
+					posts.map(({ slug, meta }) => (
+						<li>
+							<a
+								href={`/blog/${slug}`}
+								class="block p-5 rounded-xl bg-zinc-700/50 hover:bg-zinc-600/60 transition-colors"
+							>
+								<div class="flex items-center justify-between gap-4">
+									<h2 class="text-2xl font-semibold text-green-300 hover:underline flex-shrink max-w-[70%]">
+										{meta.title}
+									</h2>
+									<h2 class="text-green-300 text-sm sm:text-base flex-shrink-0 whitespace-nowrap">
+										{meta.date}
+									</h2>
+								</div>
+								<p class="text-green-400 mt-2">
+									{meta.summary ?? 'No summary available.'}
+								</p>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</main>
+</Layout>
