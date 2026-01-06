@@ -1,6 +1,6 @@
 # domenkoder.com
 
-A sleek personal website built with **Astro**, styled with **Tailwind CSS**, and powered by the speed of **Vite**.
+A personal website built with **Astro** and styled with **Tailwind CSS**.
 
 ---
 
@@ -12,16 +12,15 @@ A sleek personal website built with **Astro**, styled with **Tailwind CSS**, and
 
 ## ⚙️ Tech Stack
 
-- **Astro** – Modern static site builder
-- **Tailwind CSS** – Utility-first styling
-- **Vite** – Lightning-fast build tool
+- **Astro**
+- **Tailwind CSS**
 
 ---
 
 ## ✨ Features
 
-- 🧑‍💼 Portfolio
-- ✍️ Personal blog
-- 📬 Contact info
+- Portfolio
+- Personal blog
+- Contact info
 
 ---
