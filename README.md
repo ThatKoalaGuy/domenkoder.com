@@ -1,26 +1,27 @@
 # domenkoder.com
 
-A personal website built with **Astro** and styled with **Tailwind CSS**.
+My personal portfolio website — built with Astro and Tailwind CSS.
 
----
+## Stack
 
-## 🌐 Live Site
+- [Astro](https://astro.build) — static site generator
+- [Tailwind CSS](https://tailwindcss.com) — utility-first styling
+- [MDX](https://mdxjs.com) — blog posts
+- [Giscus](https://giscus.app) — blog comments via GitHub Discussions
+- [Cloudflare Pages](https://pages.cloudflare.com) — hosting and deployment
 
-[https://domenkoder.com](https://domenkoder.com)
+## Pages
 
----
+| Route        | Description                           |
+| ------------ | ------------------------------------- |
+| `/`          | Landing page                          |
+| `/portfolio` | Projects showcase                     |
+| `/skills`    | Technical and soft skills             |
+| `/uses`      | Hardware, software, and homelab setup |
+| `/about`     | About me                              |
+| `/blog`      | Blog posts written in MDX             |
+| `/404`       | Custom 404 page                       |
 
-## ⚙️ Tech Stack
+## Deployment
 
-- **Astro**
-- **Tailwind CSS**
-
----
-
-## ✨ Features
-
-- Portfolio
-- Personal blog
-- Contact info
-
----
+The site is deployed on Cloudflare Pages. Every push to `main` triggers an automatic deployment.
