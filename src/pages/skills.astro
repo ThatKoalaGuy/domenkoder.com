@@ -1,54 +1,167 @@
 ---
 import Layout from '../layouts/layout.astro';
-
 const title = 'Skills | Domen Koder';
 const description = "Learn about Domen Koder's skills as a software developer.";
 const canonical = 'https://domenkoder.com/skills';
+const skills = {
+	languages: [
+		{
+			name: 'HTML & CSS',
+			level: 'Advanced',
+			color: 'text-emerald-400',
+			bg: 'bg-emerald-950/60 border border-emerald-800/50',
+		},
+		{
+			name: 'JavaScript / TypeScript',
+			level: 'Advanced',
+			color: 'text-emerald-400',
+			bg: 'bg-emerald-950/60 border border-emerald-800/50',
+		},
+		{
+			name: 'Java',
+			level: 'Intermediate',
+			color: 'text-yellow-400',
+			bg: 'bg-yellow-950/60 border border-yellow-800/50',
+		},
+		{
+			name: 'C++',
+			level: 'Basic',
+			color: 'text-slate-300',
+			bg: 'bg-slate-800/60 border border-slate-600/50',
+		},
+	],
+	frameworks: [
+		{
+			name: 'React',
+			bg: 'bg-cyan-950/60 border border-cyan-800/50 text-cyan-200',
+		},
+		{
+			name: 'Astro',
+			bg: 'bg-orange-950/60 border border-orange-800/50 text-orange-200',
+		},
+		{
+			name: 'Tailwind CSS',
+			bg: 'bg-sky-950/60 border border-sky-800/50 text-sky-200',
+		},
+	],
+	competitive: [
+		{ name: 'Platform', value: 'Codeforces / AtCoder' },
+		{ name: 'Language', value: 'C++' },
+	],
+	tools: [
+		'Git & GitHub',
+		'Linux / WSL',
+		'Docker',
+		'Hyper-V',
+		'Networking',
+		'Cloudflare',
+	],
+	spoken: [
+		{ lang: 'Slovenian', level: 'Native' },
+		{ lang: 'English', level: 'C1' },
+		{ lang: 'German', level: 'A2' },
+	],
+};
 ---
 
 <Layout {title} {description} {canonical}>
-	<main class="max-w-4xl mx-auto space-y-10 flex-grow px-4 sm:px-0">
-		<h1 class="text-4xl sm:text-5xl font-bold text-center text-white p-6">
+	<main class="max-w-4xl mx-auto flex-grow px-4 sm:px-0 py-10 space-y-12">
+		<h1 class="text-4xl sm:text-5xl font-bold text-center text-white pb-2">
 			My Skills
 		</h1>
 
+		<!-- Programming Languages -->
 		<section>
-			<h2 class="text-2xl font-semibold mb-4">Programming Languages</h2>
-			<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-lg">
-				<li>HTML & CSS (Advanced)</li>
-				<li>JavaScript (Advanced)</li>
-				<li>Java (Intermediate)</li>
-				<li>C (Basic)</li>
+			<h2
+				class="text-xl font-semibold mb-4 text-white border-b border-slate-600 pb-2"
+			>
+				Programming Languages
+			</h2>
+			<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+				{
+					skills.languages.map(({ name, level, color, bg }) => (
+						<li
+							class={`flex items-center justify-between ${bg} rounded-lg px-4 py-3`}
+						>
+							<span class="text-white font-medium">{name}</span>
+							<span class={`text-sm font-semibold ${color}`}>{level}</span>
+						</li>
+					))
+				}
 			</ul>
 		</section>
 
+		<!-- Frameworks & Libraries -->
 		<section>
-			<h2 class="text-2xl font-semibold mb-4">Frameworks & Libraries</h2>
-			<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-lg">
-				<li>React</li>
-				<li>Astro</li>
-				<li>Tailwind CSS</li>
+			<h2
+				class="text-xl font-semibold mb-4 text-white border-b border-slate-600 pb-2"
+			>
+				Frameworks & Libraries
+			</h2>
+			<ul class="flex flex-wrap gap-2">
+				{
+					skills.frameworks.map(({ name, bg }) => (
+						<li class={`${bg} rounded-full px-4 py-2 text-sm font-medium`}>
+							{name}
+						</li>
+					))
+				}
 			</ul>
 		</section>
 
+		<!-- Competitive Programming -->
 		<section>
-			<h2 class="text-2xl font-semibold mb-4">Tools & Platforms</h2>
-			<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-lg">
-				<li>Git & GitHub</li>
-				<li>Linux / WSL</li>
-				<li>Docker</li>
-				<li>Virtualization [Hyper-V]</li>
-				<li>Networking</li>
+			<h2
+				class="text-xl font-semibold mb-4 text-white border-b border-slate-600 pb-2"
+			>
+				Competitive Programming
+			</h2>
+			<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+				{
+					skills.competitive.map(({ name, value }) => (
+						<li class="flex items-center justify-between bg-slate-700/60 border border-slate-500/50 rounded-lg px-4 py-3">
+							<span class="text-slate-400 text-sm">{name}</span>
+							<span class="text-white font-medium">{value}</span>
+						</li>
+					))
+				}
 			</ul>
 		</section>
 
+		<!-- Tools & Platforms -->
 		<section>
-			<h2 class="text-2xl font-semibold mb-4">Other Skills</h2>
-			<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-lg">
-				<li>Problem Solving</li>
-				<li>Fast Learner</li>
-				<li>Team Communication</li>
-				<li>Slovenian (native), English (C1), German (A1)</li>
+			<h2
+				class="text-xl font-semibold mb-4 text-white border-b border-slate-600 pb-2"
+			>
+				Tools & Platforms
+			</h2>
+			<ul class="flex flex-wrap gap-2">
+				{
+					skills.tools.map((name) => (
+						<li class="bg-slate-700/60 border border-slate-500/50 text-slate-100 rounded-full px-4 py-2 text-sm font-medium">
+							{name}
+						</li>
+					))
+				}
+			</ul>
+		</section>
+
+		<!-- Spoken Languages -->
+		<section>
+			<h2
+				class="text-xl font-semibold mb-4 text-white border-b border-slate-600 pb-2"
+			>
+				Languages
+			</h2>
+			<ul class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+				{
+					skills.spoken.map(({ lang, level }) => (
+						<li class="flex items-center justify-between bg-slate-700/60 border border-slate-500/50 rounded-lg px-4 py-3">
+							<span class="text-white font-medium">{lang}</span>
+							<span class="text-sm text-slate-200">{level}</span>
+						</li>
+					))
+				}
 			</ul>
 		</section>
 	</main>

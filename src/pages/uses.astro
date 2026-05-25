@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/layout.astro';
+const title = 'Uses | Domen Koder';
+const description =
+	'The tools, hardware, and software Domen Koder uses day to day.';
+const canonical = 'https://domenkoder.com/uses';
+
+type UsesItem = { name: string; value: string; note?: string };
+const uses: Record<string, UsesItem[]> = {
+	hardware: [
+		{ name: 'CPU', value: 'AMD Ryzen 7 7800X3D' },
+		{ name: 'RAM', value: '32GB' },
+		{ name: 'GPU', value: 'Radeon 7900XTX' },
+		{ name: 'Monitor', value: 'Gigabyte 2560×1440p' },
+	],
+	software: [
+		{
+			name: 'OS',
+			value: 'Windows 11 + Ubuntu WSL2',
+			note: 'Planning to switch to a Linux distro',
+		},
+		{
+			name: 'Linux',
+			value: 'Arch & Fedora',
+			note: 'Daily drove both for extended periods',
+		},
+		{ name: 'Editor', value: 'JetBrains IDEs / VS Code' },
+		{ name: 'Terminal', value: 'Windows Terminal' },
+		{ name: 'SSH Client', value: 'Termius' },
+	],
+	homelab: [
+		{ name: 'Hypervisor', value: 'Hyper-V' },
+		{ name: 'Network Device', value: 'MikroTik' },
+		{ name: 'Server OS', value: 'Ubuntu Server' },
+		{ name: 'Reverse Proxy', value: 'Nginx' },
+		{ name: 'Orchestration', value: 'Docker' },
+		{ name: 'VPN', value: 'WireGuard' },
+		{ name: 'Cloudflare', value: 'Workers, Pages, Email, Firewall, DNS' },
+	],
+};
+---
+
+<Layout {title} {description} {canonical}>
+	<main class="max-w-4xl mx-auto px-4 sm:px-0 py-10 space-y-12">
+		<h1 class="text-4xl sm:text-5xl font-bold text-center text-white">Uses</h1>
+
+		{
+			Object.entries(uses).map(([section, items]) => (
+				<section>
+					<h2 class="text-xl font-semibold text-white border-b border-zinc-600 pb-2 mb-4 capitalize">
+						{section}
+					</h2>
+					<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+						{items.map(({ name, value, note }) => (
+							<li class="flex flex-col bg-zinc-700/60 border border-zinc-600/50 rounded-lg px-4 py-3 gap-1">
+								<div class="flex items-center justify-between">
+									<span class="text-zinc-400 text-sm">{name}</span>
+									<span class="text-white font-medium text-right">{value}</span>
+								</div>
+								{note && <p class="text-zinc-400 text-xs">{note}</p>}
+							</li>
+						))}
+					</ul>
+				</section>
+			))
+		}
+	</main>
+</Layout>

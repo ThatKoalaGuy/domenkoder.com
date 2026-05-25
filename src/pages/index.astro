@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/layout.astro';
-
 const title = 'Domen Koder | Software Dev';
 const description =
 	'Domen Koder is a software engineering student with a passion for web development and Linux. Explore projects and connect online.';
@@ -9,11 +8,34 @@ const canonical = 'https://domenkoder.com/';
 
 <Layout {title} {description} {canonical}>
 	<main class="flex justify-center items-center min-h-[calc(87svh-5rem)] p-4">
-		<div>
-			<h1 class="text-6xl sm:text-9xl">Hi, I'm Domen.</h1>
-			<h2 class="text-3xl sm:text-5xl">
-				A high-school junior studying software engineering.
+		<div class="max-w-3xl space-y-6">
+			<p class="text-slate-400 text-lg tracking-widest uppercase">
+				Based in Slovenia 🇸🇮
+			</p>
+			<h1 class="text-6xl sm:text-9xl font-bold text-green -ml-2">
+				Hi, I'm Domen.
+			</h1>
+			<h2 class="text-2xl sm:text-4xl text-slate-300 leading-snug">
+				Software engineering student — building for the web, tinkering with
+				Linux, and learning how everything works under the hood.
 			</h2>
+			<div class="flex flex-wrap gap-4 pt-2">
+				<a
+					href="/portfolio"
+					class="bg-white text-slate-900 font-semibold px-6 py-3 rounded-lg hover:bg-slate-200 transition-colors duration-200"
+				>
+					See my projects
+				</a>
+
+				<a
+					href="https://github.com/ThatKoalaGuy"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="border border-slate-500 text-slate-200 font-semibold px-6 py-3 rounded-lg hover:border-slate-300 hover:text-white transition-colors duration-200"
+				>
+					GitHub
+				</a>
+			</div>
 		</div>
 	</main>
 </Layout>

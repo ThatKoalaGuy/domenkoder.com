@@ -1,37 +1,45 @@
-<footer class="text-white text-center p-6 space-y-4">
-	<div class="flex justify-center space-x-6">
-		<a
-			rel="me"
-			href="https://mastodon.social/@ThatKoalaGuy"
-			target="_blank"
-			aria-label="Mastodon"
-		>
-			<img
-				src="/icons/mastodon.png"
-				alt="Mastodon"
-				class="w-12 h-12 hover:opacity-75"
-			/>
-		</a>
-		<a href="mailto:domen@domenkoder.com" aria-label="Email">
-			<img
-				src="/icons/email.png"
-				alt="Email icon"
-				class="w-12 h-12 hover:opacity-75"
-			/>
-		</a>
-		<a
-			href="https://github.com/thatkoalaguy"
-			target="_blank"
-			aria-label="GitHub"
-		>
-			<img
-				src="/icons/github.png"
-				alt="GitHub icon"
-				class="w-12 h-12 hover:opacity-75"
-			/>
-		</a>
-	</div>
+---
+const links = [
+	{
+		href: 'https://mastodon.social/@ThatKoalaGuy',
+		icon: '/icons/mastodon.png',
+		label: 'Mastodon',
+		rel: 'me',
+	},
+	{
+		href: 'mailto:domen@domenkoder.com',
+		icon: '/icons/email.png',
+		label: 'Email',
+	},
+	{
+		href: 'https://github.com/thatkoalaguy',
+		icon: '/icons/github.png',
+		label: 'GitHub',
+	},
+];
+---
 
+<footer
+	class="border-t border-zinc-600/50 text-white text-center p-6 space-y-4 mt-auto"
+>
+	<div class="flex justify-center space-x-6">
+		{
+			links.map(({ href, icon, label, rel }) => (
+				<a
+					href={href}
+					target={href.startsWith('mailto') ? undefined : '_blank'}
+					rel={
+						rel ??
+						(href.startsWith('mailto') ? undefined : 'noopener noreferrer')
+					}
+					aria-label={label}
+					class="opacity-70 hover:opacity-100 transition-opacity duration-200"
+				>
+					<img src={icon} alt={label} class="w-8 h-8" />
+				</a>
+			))
+		}
+	</div>
 	<p class="text-sm text-zinc-400">
 		Made with ❤️ in sLOVEnia. &copy; 2026, Domen Koder.
 	</p>

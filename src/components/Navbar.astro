@@ -1,25 +1,50 @@
+---
+const navLinks = [
+	{ href: '/blog', label: 'Blog' },
+	{ href: '/portfolio', label: 'Portfolio' },
+	{ href: '/skills', label: 'Skills' },
+	{ href: '/uses', label: 'Uses' },
+	{ href: '/about', label: 'About me' },
+];
+const currentPath = Astro.url.pathname;
+---
+
 <nav
 	id="navbar"
-	class="bg-zinc-800 text-green-400 px-6 py-4 shadow-md fixed w-full top-0 z-50 transition-transform duration-300"
+	class="bg-zinc-800 border-b border-slate-700/50 text-green-400 px-6 py-4 fixed w-full top-0 z-50 transition-transform duration-300"
 >
 	<div class="max-w-7xl mx-auto flex justify-between items-center">
-		<div class="text-2xl font-bold">
-			<a href="/" class="hover:text-white transition">Domen Koder</a>
-		</div>
+		<a
+			href="/"
+			class="text-2xl font-bold text-green-400 hover:text-white transition-colors duration-200"
+		>
+			Domen Koder
+		</a>
 
 		<!-- Desktop links -->
 		<div class="hidden md:flex space-x-6">
-			<a href="/blog" class="hover:text-white transition">Blog</a>
-			<a href="/portfolio" class="hover:text-white transition">Portfolio</a>
-			<a href="/skills" class="hover:text-white transition">Skills</a>
-			<a href="/about" class="hover:text-white transition">About me</a>
+			{
+				navLinks.map(({ href, label }) => (
+					<a
+						href={href}
+						class={`transition-colors duration-200 ${
+							currentPath === href
+								? 'text-white font-semibold'
+								: 'text-green-400 hover:text-white'
+						}`}
+					>
+						{label}
+					</a>
+				))
+			}
 		</div>
 
 		<!-- Mobile menu button -->
 		<button
 			id="menuButton"
-			aria-label="menu"
-			class="md:hidden focus:outline-none"
+			aria-label="Toggle menu"
+			aria-expanded="false"
+			class="md:hidden text-green-400 hover:text-white transition-colors duration-200 focus:outline-none"
 		>
 			<svg
 				id="menuIcon"
@@ -40,70 +65,65 @@
 	<!-- Mobile dropdown -->
 	<div
 		id="mobileMenu"
-		class="md:hidden absolute top-full right-0 w-48 bg-zinc-900 text-green-400 rounded-md shadow-lg transform transition-all duration-300 origin-top-right opacity-0 scale-95 translate-x-4 pointer-events-none"
+		class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out"
 	>
-		<div class="flex flex-col items-end px-4 py-4 space-y-2 text-right">
-			<a href="/blog" class="hover:text-white transition">Blog</a>
-			<a href="/portfolio" class="hover:text-white transition">Portfolio</a>
-			<a href="/skills" class="hover:text-white transition">Skills</a>
-			<a href="/about" class="hover:text-white transition">About me</a>
+		<div
+			class="flex flex-col px-2 pt-2 pb-4 space-y-1 border-t border-slate-700/50 mt-3"
+		>
+			{
+				navLinks.map(({ href, label }) => (
+					<a
+						href={href}
+						class={`px-3 py-2 rounded-lg transition-colors duration-200 ${
+							currentPath === href
+								? 'text-white font-semibold bg-slate-700/50'
+								: 'text-green-400 hover:text-white hover:bg-slate-700/30'
+						}`}
+					>
+						{label}
+					</a>
+				))
+			}
 		</div>
 	</div>
 </nav>
 
 <script>
-	// Mobile menu toggle
 	const menuButton = document.getElementById('menuButton');
 	const mobileMenu = document.getElementById('mobileMenu');
 	const menuIcon = document.getElementById('menuIcon');
+	const OPEN_PATH = 'M6 18L18 6M6 6l12 12';
+	const CLOSED_PATH = 'M4 6h16M4 12h16M4 18h16';
 	let menuOpen = false;
 
-	if (menuButton && mobileMenu && menuIcon) {
-		menuButton.addEventListener('click', () => {
-			menuOpen = !menuOpen;
-			if (menuOpen) {
-				mobileMenu.classList.remove(
-					'opacity-0',
-					'scale-95',
-					'translate-x-4',
-					'pointer-events-none'
-				);
-				mobileMenu.classList.add('opacity-100', 'scale-100', 'translate-x-0');
-				menuIcon.innerHTML =
-					'<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
-			} else {
-				mobileMenu.classList.remove(
-					'opacity-100',
-					'scale-100',
-					'translate-x-0'
-				);
-				mobileMenu.classList.add(
-					'opacity-0',
-					'scale-95',
-					'translate-x-4',
-					'pointer-events-none'
-				);
-				menuIcon.innerHTML =
-					'<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
-			}
-		});
-
-		// Hide on scroll
-		let lastScrollY = 0;
-		const navbar = document.getElementById('navbar');
-
-		if (navbar) {
-			window.addEventListener('scroll', () => {
-				const currentScrollY = window.scrollY;
-				if (currentScrollY > lastScrollY && currentScrollY > 50) {
-					navbar.classList.add('-translate-y-full');
-					navbar.classList.remove('translate-y-0');
-				} else {
-					navbar.classList.remove('-translate-y-full');
-					navbar.classList.add('translate-y-0');
-				}
-				lastScrollY = currentScrollY;
-			});
+	function setMenu(open: boolean) {
+		menuOpen = open;
+		menuButton?.setAttribute('aria-expanded', String(open));
+		const path = menuIcon?.querySelector('path');
+		if (path) path.setAttribute('d', open ? OPEN_PATH : CLOSED_PATH);
+		if (mobileMenu) {
+			mobileMenu.style.maxHeight = open ? `${mobileMenu.scrollHeight}px` : '0';
 		}
 	}
+
+	menuButton?.addEventListener('click', () => setMenu(!menuOpen));
+
+	// Close on nav link click
+	mobileMenu?.querySelectorAll('a').forEach((link) => {
+		link.addEventListener('click', () => setMenu(false));
+	});
+
+	// Hide on scroll down, show on scroll up
+	let lastScrollY = 0;
+	const navbar = document.getElementById('navbar');
+	window.addEventListener('scroll', () => {
+		const currentScrollY = window.scrollY;
+		if (navbar) {
+			navbar.classList.toggle(
+				'-translate-y-full',
+				currentScrollY > lastScrollY && currentScrollY > 50,
+			);
+		}
+		lastScrollY = currentScrollY;
+	});
 </script>
